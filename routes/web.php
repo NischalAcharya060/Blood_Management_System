@@ -56,6 +56,9 @@ Route::get('/user_dashboard', function () {
 Route::middleware(['auth', 'role:user', 'verified'])->group(function () {
 Route::get('/blood_requests/create', [BloodRequestController::class, 'create'])->name('blood_requests.create');
 Route::post('/blood_requests', [BloodRequestController::class, 'store'])->name('blood_requests.store');
+Route::get('/blood-requests', [BloodRequestController::class, 'index'])->name('blood_requests.index');
+Route::get('/blood_requests/{bloodRequest}', [BloodRequestController::class, 'show'])->name('blood_requests.show');
+Route::post('/blood_requests/{bloodRequest}/mark_as_donor', [BloodRequestController::class, 'markAsDonor'])->name('blood_requests.mark_as_donor');
 });
 
 //admin blood Request

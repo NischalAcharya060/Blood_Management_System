@@ -80,6 +80,9 @@
                     <a class="nav-link" href="#">Contact</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('blood_requests.index') }}">Blood Request</a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('blood_requests.create') }}" class="btn" style="background-color: #FF033E; color: white;">
                         <i class="fas fa-tint"></i> Create Blood Request
                     </a>
