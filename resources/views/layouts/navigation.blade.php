@@ -14,8 +14,12 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('User Management')">
+                    <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')">
                         {{ __('User Management') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('admin.blood_requests.index')" :active="request()->routeIs('admin.blood_requests.index')">
+                        {{ __('Blood Request') }}
                     </x-nav-link>
                 </div>
             </div>

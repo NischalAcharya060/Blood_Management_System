@@ -42,10 +42,17 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        // Determine the dashboard route based on the user's role
+        $dashboardRoute = match ($user->role) {
+            'admin' => RouteServiceProvider::ADMIN_DASHBOARD,
+            'donor' => RouteServiceProvider::DONOR_DASHBOARD,
+            'user' => RouteServiceProvider::USER_DASHBOARD,
+        };
+
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect($dashboardRoute);
     }
 }

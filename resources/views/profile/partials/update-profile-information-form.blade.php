@@ -28,7 +28,8 @@
             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
 
-            @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
+
+        @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                 <div>
                     <p class="text-sm mt-2 text-gray-800">
                         {{ __('Your email address is unverified.') }}
@@ -45,6 +46,11 @@
                     @endif
                 </div>
             @endif
+        </div>
+        <div>
+            <x-input-label for="role" :value="__('Role')" />
+            <input id="role" name="role" type="text" readonly class="form-input mt-1 block w-full" value="{{ old('role', $user->role) }}" required autocomplete="role" />
+            <x-input-error class="mt-2" :messages="$errors->get('role')" />
         </div>
 
         <div class="flex items-center gap-4">

@@ -13,14 +13,16 @@ return new class extends Migration
     {
         Schema::create('blood_requests', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('donor_id');
+            $table->string('patient_name');
+            $table->integer('age');
             $table->string('blood_type');
             $table->integer('quantity');
-            $table->text('description')->nullable();
+            $table->string('hospital_name');
+            $table->string('hospital_location');
+            $table->string('map_coordinates')->nullable();
+            $table->string('contact_info');
             $table->boolean('fulfilled')->default(false);
             $table->timestamps();
-
-            $table->foreign('donor_id')->references('id')->on('donors')->onDelete('cascade');
         });
     }
 

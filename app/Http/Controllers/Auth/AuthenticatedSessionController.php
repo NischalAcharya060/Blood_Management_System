@@ -25,12 +25,24 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        if (Auth::attempt($request->only('email', 'password'))) {
+            $user = Auth::user();
 
-        $request->session()->regenerate();
+            // Determine the dashboard route based on the user's role
+            $dashboardRoute = match ($user->role) {
+                'admin' => RouteServiceProvider::ADMIN_DASHBOARD,
+                'user' => RouteServiceProvider::USER_DASHBOARD,
+                'donor' => RouteServiceProvider::DONOR_DASHBOARD,
+            };
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+            return redirect()->intended($dashboardRoute);
+        }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ]);
     }
+
 
     /**
      * Destroy an authenticated session.
