@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <!-- Styles -->
     <style>
         body {
@@ -31,7 +32,7 @@
         }
 
         .navbar-brand img {
-            height: 40px; /* Adjust the height as needed */
+            height: 60px;
             width: auto;
             margin-right: 10px;
         }
@@ -77,6 +78,11 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('blood_requests.create') }}" class="btn" style="background-color: #FF033E; color: white;">
+                        <i class="fas fa-tint"></i> Create Blood Request
+                    </a>
                 </li>
             </ul>
         </div>

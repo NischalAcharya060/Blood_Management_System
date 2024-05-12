@@ -8,16 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class BloodRequest extends Model
 {
     protected $fillable = [
-        'donor_id',
+        'patient_name',
+        'age',
         'blood_type',
         'quantity',
-        'description',
+        'hospital_name',
+        'hospital_location',
+        'map_coordinates',
+        'contact_info',
         'fulfilled',
     ];
 
-    // Define the relationship with Donor
-    public function donor()
-    {
-        return $this->belongsTo(Donor::class);
-    }
 }

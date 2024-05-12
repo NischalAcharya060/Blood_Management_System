@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminBloodRequestController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\BloodRequestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,3 +51,18 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::get('/user_dashboard', function () {
     return view('user_dashboard');
 })->middleware(['auth', 'verified'])->name('user_dashboard');
+
+//user blood Request
+Route::middleware(['auth', 'role:user'])->group(function () {
+Route::get('/blood_requests/create', [BloodRequestController::class, 'create'])->name('blood_requests.create');
+Route::post('/blood_requests', [BloodRequestController::class, 'store'])->name('blood_requests.store');
+});
+
+//admin blood Request
+Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::get('/admin/blood_requests', [AdminBloodRequestController::class, 'index'])->name('admin.blood_requests.index');
+Route::get('/admin/blood-requests/{bloodRequest}', [AdminBloodRequestController::class, 'show'])->name('admin.blood_requests.show');
+Route::get('/admin/blood-requests/{bloodRequest}/edit', [AdminBloodRequestController::class, 'edit'])->name('admin.blood_requests.edit');
+Route::put('/admin/blood-requests/{bloodRequest}', [AdminBloodRequestController::class, 'update'])->name('admin.blood_requests.update');
+Route::delete('/admin/blood-requests/{bloodRequest}', [AdminBloodRequestController::class, 'destroy'])->name('admin.blood_requests.destroy');
+});
