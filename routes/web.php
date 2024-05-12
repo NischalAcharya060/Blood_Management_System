@@ -53,7 +53,7 @@ Route::get('/user_dashboard', function () {
 })->middleware(['auth', 'verified'])->name('user_dashboard');
 
 //user blood Request
-Route::middleware(['auth', 'role:user'])->group(function () {
+Route::middleware(['auth', 'role:user', 'verified'])->group(function () {
 Route::get('/blood_requests/create', [BloodRequestController::class, 'create'])->name('blood_requests.create');
 Route::post('/blood_requests', [BloodRequestController::class, 'store'])->name('blood_requests.store');
 });
