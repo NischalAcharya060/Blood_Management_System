@@ -34,6 +34,10 @@
             <div id="app">
                 @yield('content')
             </div>
+
+                <main>
+                    {{ $slot }}
+                </main>
         </div>
     </body>
 </html>

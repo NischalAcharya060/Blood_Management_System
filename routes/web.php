@@ -20,7 +20,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//dashboard
+//admin dashboard
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -44,3 +44,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('/admin/users/{user}', [UserController::class, 'update'])->name('admin.users.update');
     Route::delete('/admin/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
 });
+
+//user dashboard
+Route::get('/user_dashboard', function () {
+    return view('user_dashboard');
+})->middleware(['auth', 'verified'])->name('user_dashboard');
