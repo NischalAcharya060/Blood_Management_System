@@ -13,6 +13,7 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.0/css/boxicons.min.css">
     <!-- Styles -->
     <style>
         body {
@@ -59,10 +60,10 @@
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('user_dashboard') }}" style="font-weight: bolder; color: #FF033E">
-            <img src="{{ asset('img/logo.png') }}" alt="Logo">
+        <a class="navbar-brand" href="{{ route('user_dashboard') }}" style="font-weight: bold; font-size: 1.2rem; color: #FF033E">
+            <img src="{{ asset('img/logo.png') }}" alt="Logo" style=" width: auto; margin-right: 10px; ">
             Blood Management System
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -80,7 +81,33 @@
                     <a class="nav-link" href="#">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('blood_requests.create') }}" class="btn" style="background-color: #FF033E; color: white;">
+                    <a class="nav-link" href="{{ route('blood_requests.index') }}">Blood Request</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        @if (auth()->check() && $user = auth()->user())
+                            <div class="d-flex align-items-center">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Default Profile Picture" class="rounded-circle" style="width: 30px; margin-right: 5px;">
+                                <span>{{ $user->name }}</span>
+                            </div>
+                        @endif
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item profile-link" href="{{ route('user.profile.show') }}">
+                            <i class='bx bxs-user'></i> Profile
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+
+                        <a href="#" class="dropdown-item logout-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class='bx bxs-door-open'></i> Logout
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('blood_requests.create') }}" class="btn ml-2" style="font-weight: bolder; background-color: #FF033E; color: white;">
                         <i class="fas fa-tint"></i> Create Blood Request
                     </a>
                 </li>
@@ -88,6 +115,7 @@
         </div>
     </div>
 </nav>
+
 
 <!-- Page Content -->
 <div id="app">

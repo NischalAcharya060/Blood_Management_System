@@ -47,6 +47,7 @@ class RegisteredUserController extends Controller
             'admin' => RouteServiceProvider::ADMIN_DASHBOARD,
             'donor' => RouteServiceProvider::DONOR_DASHBOARD,
             'user' => RouteServiceProvider::USER_DASHBOARD,
+            default => RouteServiceProvider::HOME,
         };
 
         event(new Registered($user));
