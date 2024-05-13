@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\AdminBloodRequestController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\BloodRequestController;
+use App\Http\Controllers\User\UserProfileController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,7 +51,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 //user dashboard
 Route::get('/user_dashboard', function () {
-    return view('user_dashboard');
+    $user = Auth::user();
+    return view('user_dashboard', compact('user'));
 })->middleware(['auth', 'verified'])->name('user_dashboard');
 
 //user blood Request
@@ -68,4 +71,14 @@ Route::get('/admin/blood-requests/{bloodRequest}', [AdminBloodRequestController:
 Route::get('/admin/blood-requests/{bloodRequest}/edit', [AdminBloodRequestController::class, 'edit'])->name('admin.blood_requests.edit');
 Route::put('/admin/blood-requests/{bloodRequest}', [AdminBloodRequestController::class, 'update'])->name('admin.blood_requests.update');
 Route::delete('/admin/blood-requests/{bloodRequest}', [AdminBloodRequestController::class, 'destroy'])->name('admin.blood_requests.destroy');
+});
+
+//user profile
+Route::middleware(['auth', 'role:user', 'verified'])->group(function () {
+Route::get('/user/user_profile', [UserProfileController::class, 'show'])->name('user.profile.show');
+Route::get('/profile/edit', [UserProfileController::class, 'edit'])->name('user.profile.edit');
+Route::put('/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update');
+Route::get('/password/edit', [UserProfileController::class, 'password_edit'])->name('user.password.edit');
+Route::put('/password/update', [UserProfileController::class, 'password_update'])->name('user.password.update');
+Route::delete('/profile/destroy', [UserProfileController::class, 'destroy'])->name('user.profile.destroy');
 });
