@@ -10,9 +10,28 @@ use Illuminate\Http\Request;
 
 class BloodRequestController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $bloodRequests = BloodRequest::all();
+        $query = BloodRequest::query();
+
+        // Search
+        if ($request->has('search')) {
+            $searchTerm = $request->input('search');
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('patient_name', 'LIKE', "%$searchTerm%")
+                    ->orWhere('hospital_name', 'LIKE', "%$searchTerm%")
+                    ->orWhere('hospital_location', 'LIKE', "%$searchTerm%");
+            });
+        }
+
+        // Filter by Blood Type
+        if ($request->has('blood_type')) {
+            $bloodType = $request->input('blood_type');
+            $query->where('blood_type', $bloodType);
+        }
+
+        $bloodRequests = $query->paginate(10);
+
         return view('user.blood_request.index', compact('bloodRequests'));
     }
 
